@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form;
 
+use App\Validator\CompanySymbolConstraint;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -24,7 +25,11 @@ class CompanyInformationFormType extends AbstractType
                 TextType::class,
                 [
                     'label' => 'Company Symbol',
-                    'constraints' => new NotBlank(message: 'Company Symbol is required')
+                    'constraints' =>
+                        [
+                            new NotBlank(message: 'Company Symbol is required'),
+                            new CompanySymbolConstraint()
+                        ]
                 ]
             )
             ->add(
