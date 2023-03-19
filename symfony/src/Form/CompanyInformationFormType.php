@@ -12,7 +12,10 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
+use Symfony\Component\Validator\Constraints\LessThanOrEqual;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class CompanyInformationFormType extends AbstractType
@@ -40,7 +43,21 @@ class CompanyInformationFormType extends AbstractType
                     'html5' => false,
                     'attr' => ['class' => 'datepicker'],
                     'label' => 'Start Date',
-                    'constraints' => new NotBlank(message: 'Start Date is required')
+                    'input' => 'string',
+                    'format' => 'y-mm-dd',
+                    'constraints' =>
+                    [
+                        new NotBlank(message: 'Start Date is required'),
+                        new Date(),
+                        new LessThanOrEqual([
+                            'value' => 'now',
+                            'message' => 'Start date must be less than or equal to current date'
+                        ]),
+                        new LessThanOrEqual([
+                            'propertyPath' => 'parent.all[end_date].data',
+                            'message' => 'Start date must be less than or equal to end date'
+                        ]),
+                    ]
                 ]
             )
             ->add(
@@ -51,7 +68,21 @@ class CompanyInformationFormType extends AbstractType
                     'html5' => false,
                     'attr' => ['class' => 'datepicker'],
                     'label' => 'End Date',
-                    'constraints' => new NotBlank(message: 'End Date is required')
+                    'format' => 'y-mm-dd',
+                    'input' => 'string',
+                    'constraints' =>
+                        [
+                            new NotBlank(message: 'End Date is required'),
+                            new Date(),
+                            new LessThanOrEqual([
+                                'value' => 'now',
+                                'message' => 'End date must be less than or equal to current date'
+                            ]),
+                            new GreaterThanOrEqual([
+                                'propertyPath' => 'parent.all[start_date].data',
+                                'message' => 'End date must be greater than or equal to start date'
+                            ]),
+                        ]
                 ]
             )
             ->add(
