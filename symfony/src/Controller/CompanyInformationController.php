@@ -15,7 +15,7 @@ class CompanyInformationController extends AbstractController
         $form = $this->createForm(CompanyInformationFormType::class);
 
         return $this->render(
-            'form.html.twig',
+            'index.html.twig',
             [
                 'form' => $form
             ]
