@@ -49,9 +49,7 @@ class LoadCompanyInformationCommand extends Command
         $entityCount = 0;
         /** @var CompanyModel $companyModel */
         foreach ($progressBar->iterate($companyModels) as $companyModel) {
-            $companyInformation = $this->companyInformationRepository->findOneBy(
-                ['symbol' => $companyModel->getSymbol()]
-            );
+            $companyInformation = $this->companyInformationRepository->findBySymbol($companyModel->getSymbol());
 
             if (!$companyInformation) {
                 $companyInformation = new CompanyInformation();
