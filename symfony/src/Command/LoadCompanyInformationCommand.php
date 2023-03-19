@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Command;
@@ -48,7 +49,9 @@ class LoadCompanyInformationCommand extends Command
         $entityCount = 0;
         /** @var CompanyModel $companyModel */
         foreach ($progressBar->iterate($companyModels) as $companyModel) {
-            $companyInformation = $this->companyInformationRepository->findBy(['symbol' => $companyModel->getSymbol()]);
+            $companyInformation = $this->companyInformationRepository->findOneBy(
+                ['symbol' => $companyModel->getSymbol()]
+            );
 
             if (!$companyInformation) {
                 $companyInformation = new CompanyInformation();
