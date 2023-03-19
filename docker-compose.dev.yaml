@@ -1,0 +1,12 @@
+version: '3.9'
+
+# after changing a file you should to rerun project by 'docker-compose up -d'.
+#use this file to overwrite docker-compose params
+#services:
+#    nginx:
+#        ports:
+#            - "8124:80"
+#
+#    db:
+#        ports:
+#            - "5429:5432"

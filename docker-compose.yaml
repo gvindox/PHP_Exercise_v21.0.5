@@ -1,0 +1,61 @@
+version: '3.9'
+
+services:
+    db:
+        container_name: company_symbol_exercise_db
+        image: postgres:latest
+        restart: unless-stopped
+        volumes:
+            - postgres:/var/lib/postgresql/data
+        environment:
+            POSTGRES_USER: ${POSTGRES_USER}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+            POSTGRES_DB: ${POSTGRES_DB}
+        networks:
+            - internal
+        ports:
+            - "5429:5432"
+
+    php:
+        build:
+            context: docker/php
+            args:
+                LOCAL_UID: ${LOCAL_UID}
+        container_name: company_symbol_exercise_php
+        restart: unless-stopped
+        volumes:
+            - ./symfony:/var/www/app
+            - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+            - ./docker/php/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+        working_dir: /var/www/app
+        depends_on:
+            - db
+        environment:
+            POSTGRES_USER: ${POSTGRES_USER}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+            POSTGRES_DB: ${POSTGRES_DB}
+            XDEBUG_CONFIG: "client_host=host.docker.internal idekey=PHPSTORM"
+            PHP_IDE_CONFIG: "serverName=company_symbol_exercise"
+            XDEBUG_MODE: "develop,debug"
+        networks:
+            - internal
+
+    nginx:
+        image: nginx:latest
+        container_name: company_symbol_exercise_nginx
+        restart: unless-stopped
+        volumes:
+            - ./symfony:/var/www/app
+            - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+        depends_on:
+            - php
+        networks:
+            - internal
+        ports:
+            - "80:80"
+
+volumes:
+    postgres:
+
+networks:
+    internal:
