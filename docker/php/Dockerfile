@@ -1,7 +1,7 @@
 FROM composer AS composer
 FROM php:8.2-fpm
 
-ARG LOCAL_UID=1000
+ARG LOCAL_UID=${LOCAL_UID}
 
 # Composer
 COPY --from=composer /usr/bin/composer /usr/bin/composer
@@ -26,6 +26,8 @@ RUN pecl install xdebug amqp && docker-php-ext-enable xdebug amqp
 
 # override UID exists user
 RUN usermod -u ${LOCAL_UID} www-data && groupmod -g ${LOCAL_UID} www-data
+
+RUN chown -R www-data:www-data /var/www
 
 USER www-data
 
