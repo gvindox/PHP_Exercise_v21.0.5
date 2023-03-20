@@ -57,6 +57,9 @@ class CompanyInformationFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => CompanyInformationModelImpl::class,
+            'csrf_protection' => true,
+            'csrf_field_name' => '_token',
+            'csrf_token_id'   => 'company_information',
         ]);
     }
 }
