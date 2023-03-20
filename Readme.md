@@ -1,11 +1,16 @@
 # Install
 
-1. go to project directory
+1. run a console application and go to the project directory
 2. execute command `chmod +x startup.sh`
 3. execute command `./startup.sh`
 
+P.S.
+if you have trouble to run `startup.sh` try to use commands from bash script manually
+
 # Usage
 The application will start and index page of localhost, with default port it will be http://127.0.0.1:80/. You can change a port in docker-compose.override.yaml
+
+To run phpunit tests run command in console `docker-compose exec php bin/phpunit`
 
 # What I didn 't have time to do and how would I do it
 
