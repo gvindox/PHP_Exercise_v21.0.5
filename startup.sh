@@ -1,6 +1,6 @@
+cp .env.example .env
 docker-compose build
 docker-compose up -d
-cp .env.example .env
 cp symfony/.env.example symfony/.env
 cp symfony/.env.test.example symfony/.env.test
 docker-compose exec php composer install
