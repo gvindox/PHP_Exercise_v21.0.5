@@ -1,8 +1,10 @@
 # Install
 
-1. run a console application and go to the project directory
-2. execute command `chmod +x startup.sh`
-3. execute command `./startup.sh`
+1. run console application
+2. run command `git clone https://github.com/gvindox/PHP_Exercise_v21.0.5.git`
+3. run command `cd PHP_Exercise_v21.0.5`
+4. run command `chmod +x startup.sh`
+5. run command `./startup.sh`
 
 P.S.
 if you have trouble to run `startup.sh` try to use commands from bash script manually
