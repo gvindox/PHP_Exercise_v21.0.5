@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Historical data{% endblock %}</title>
+    {% block stylesheets %}
+
+    {% endblock %}
+</head>
+<body>
+{% block body %}
+    <table>
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Open</th>
+            <th>High</th>
+            <th>Low</th>
+            <th>Close</th>
+            <th>Volume</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for record in historical_data %}
+            <tr>
+                <td>{{ record.date }}</td>
+                <td>{{ record.open }}</td>
+                <td>{{ record.high }}</td>
+                <td>{{ record.low }}</td>
+                <td>{{ record.close }}</td>
+                <td>{{ record.volume }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}
+</body>
+</html>
