@@ -1,4 +1,5 @@
 cp .env.example .env
+cp docker-compose.dev.yaml docker-compose.override.yaml
 docker-compose build
 docker-compose up -d
 cp symfony/.env.example symfony/.env
